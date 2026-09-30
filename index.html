@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f3ee">
+    <title>Common Ground | Polls</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="wordmark" href="#polls" aria-label="Common Ground home">
+        <span class="wordmark-mark" aria-hidden="true">c</span>
+        <span>common ground</span>
+      </a>
+      <span class="topbar-note">A little room for every opinion</span>
+    </header>
+
+    <main class="page" id="polls">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">The community board <span> / </span> Make a choice</p>
+        <h1 id="page-title">What do you think?</h1>
+        <p class="intro-copy">Ask a question, gather a few opinions, and see where everyone lands.</p>
+      </section>
+
+      <div class="workspace">
+        <section class="create-panel" aria-labelledby="create-title">
+          <div class="section-heading">
+            <span class="section-number">01</span>
+            <h2 id="create-title">Start a poll</h2>
+          </div>
+          <form id="poll-form">
+            <label class="field-label" for="poll-question">Your question</label>
+            <input id="poll-question" name="question" type="text" maxlength="100" placeholder="Where should we go for lunch?" required>
+
+            <div class="options-heading">
+              <span class="field-label">Answer options</span>
+              <span class="field-hint">2 to 8</span>
+            </div>
+            <div id="option-fields" class="option-fields">
+              <div class="option-field">
+                <span class="option-index">A</span>
+                <input name="option" type="text" maxlength="60" placeholder="First option" aria-label="Option A" required>
+                <button class="remove-option" type="button" aria-label="Remove option A" disabled>&times;</button>
+              </div>
+              <div class="option-field">
+                <span class="option-index">B</span>
+                <input name="option" type="text" maxlength="60" placeholder="Second option" aria-label="Option B" required>
+                <button class="remove-option" type="button" aria-label="Remove option B" disabled>&times;</button>
+              </div>
+            </div>
+            <button class="add-option" id="add-option" type="button"><span aria-hidden="true">+</span> Add an option</button>
+            <button class="submit-button" type="submit">Put it to a vote <span aria-hidden="true">&rarr;</span></button>
+            <p class="form-note">Polls stay on this device, so you can come back to the results.</p>
+          </form>
+        </section>
+
+        <section class="polls-section" aria-labelledby="polls-title">
+          <div class="section-heading polls-heading">
+            <span class="section-number">02</span>
+            <h2 id="polls-title">Open floor</h2>
+            <span class="poll-count" id="poll-count">0 polls</span>
+          </div>
+          <div id="poll-list" class="poll-list" aria-live="polite"></div>
+        </section>
+      </div>
+    </main>
+    <footer class="footer"><span>Good questions make good company.</span><span>COMMON GROUND &middot; EST. TODAY</span></footer>
+  </body>
+</html>
