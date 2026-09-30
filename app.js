@@ -30,7 +30,9 @@ function updateOptionFields() {
   fields.forEach((field, index) => {
     const letter = String.fromCharCode(65 + index);
     field.querySelector(".option-index").textContent = letter;
-    field.querySelector('input[name="option"]').setAttribute("aria-label", `Option ${letter}`);
+    field
+      .querySelector('input[name="option"]')
+      .setAttribute("aria-label", `Option ${letter}`);
     const removeButton = field.querySelector(".remove-option");
     removeButton.disabled = fields.length <= 2;
     removeButton.setAttribute("aria-label", `Remove option ${letter}`);
@@ -49,7 +51,7 @@ function renderEmptyState() {
   emptyState.append(
     makeElement("span", "empty-mark", "?"),
     makeElement("p", "", "It's quiet in here."),
-    makeElement("small", "", "Start a poll and get the conversation going.")
+    makeElement("small", "", "Start a poll and get the conversation going."),
   );
   pollList.append(emptyState);
 }
@@ -58,7 +60,9 @@ function renderResults(poll, totalVotes) {
   const results = makeElement("div", "results");
 
   poll.options.forEach((option) => {
-    const percentage = totalVotes ? Math.round((option.votes / totalVotes) * 100) : 0;
+    const percentage = totalVotes
+      ? Math.round((option.votes / totalVotes) * 100)
+      : 0;
     const row = makeElement("div", "result-row");
     const label = makeElement("span", "result-label", option.text);
     const track = makeElement("div", "result-track");
@@ -74,7 +78,11 @@ function renderResults(poll, totalVotes) {
   });
 
   const summary = makeElement("p", "results-summary");
-  const count = makeElement("strong", "", `${totalVotes} ${totalVotes === 1 ? "vote" : "votes"}`);
+  const count = makeElement(
+    "strong",
+    "",
+    `${totalVotes} ${totalVotes === 1 ? "vote" : "votes"}`,
+  );
   summary.append(count, document.createTextNode(" so far"));
   results.append(summary);
   return results;
@@ -82,15 +90,21 @@ function renderResults(poll, totalVotes) {
 
 function renderPoll(poll) {
   const card = makeElement("article", "poll-card");
-  const totalVotes = poll.options.reduce((total, option) => total + option.votes, 0);
+  const totalVotes = poll.options.reduce(
+    (total, option) => total + option.votes,
+    0,
+  );
   const meta = makeElement("div", "poll-meta", "Community poll");
   const question = makeElement("h3", "", poll.question);
   card.append(meta, question);
 
   if (poll.voted) {
     card.append(renderResults(poll, totalVotes));
-    const note = makeElement("p", "already-voted", "Your vote is in. Thanks for weighing in.");
-    note.style.margin = "12px 0 0";
+    const note = makeElement(
+      "p",
+      "already-voted",
+      "Your vote is in. Thanks for weighing in.",
+    );
     card.append(note);
     return card;
   }
@@ -110,7 +124,11 @@ function renderPoll(poll) {
   const actions = makeElement("div", "poll-actions");
   const voteButton = makeElement("button", "vote-button", "Vote");
   voteButton.type = "submit";
-  const total = makeElement("span", "vote-total", `${totalVotes} ${totalVotes === 1 ? "vote" : "votes"}`);
+  const total = makeElement(
+    "span",
+    "vote-total",
+    `${totalVotes} ${totalVotes === 1 ? "vote" : "votes"}`,
+  );
   actions.append(voteButton, total);
   form.append(actions);
   form.addEventListener("submit", (event) => {
@@ -149,7 +167,10 @@ addOptionButton.addEventListener("click", () => {
   input.type = "text";
   input.maxLength = 60;
   input.placeholder = "Another option";
-  input.setAttribute("aria-label", `Option ${String.fromCharCode(65 + optionFields.children.length)}`);
+  input.setAttribute(
+    "aria-label",
+    `Option ${String.fromCharCode(65 + optionFields.children.length)}`,
+  );
   input.required = true;
   const removeButton = makeElement("button", "remove-option", "×");
   removeButton.type = "button";
@@ -180,7 +201,7 @@ pollForm.addEventListener("submit", (event) => {
     id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
     question,
     options: options.map((text) => ({ text, votes: 0 })),
-    voted: false
+    voted: false,
   });
   savePolls();
   renderPolls();
